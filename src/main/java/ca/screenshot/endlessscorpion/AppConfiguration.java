@@ -9,16 +9,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
 import org.springframework.http.converter.xml.SourceHttpMessageConverter;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.client.RestTemplate;
 
 import javax.xml.transform.Source;
-import java.util.Collections;
+import java.util.Arrays;
 
 /**
  * Created by plaguemorin on 11/07/15.
- *
+ * --
  */
 @Configuration
 public class AppConfiguration {
@@ -31,7 +32,8 @@ public class AppConfiguration {
 	public RestTemplate restTemplate() {
 		final RestTemplate restTemplate = new RestTemplate();
 		restTemplate.setMessageConverters(
-				Collections.<HttpMessageConverter<?>>singletonList(new SourceHttpMessageConverter<Source>())
+				//Collections.<HttpMessageConverter<?>>singletonList(new SourceHttpMessageConverter<Source>())
+				Arrays.<HttpMessageConverter<?>>asList(new SourceHttpMessageConverter<Source>(), new Jaxb2RootElementHttpMessageConverter())
 		);
 
 		return restTemplate;
