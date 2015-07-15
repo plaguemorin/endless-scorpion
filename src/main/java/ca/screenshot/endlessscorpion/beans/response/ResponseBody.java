@@ -1,4 +1,4 @@
-package ca.screenshot.endlessscorpion.beans;
+package ca.screenshot.endlessscorpion.beans.response;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;

@@ -22,6 +22,4 @@ public class RestEndpoint {
 		LOG.info("Index requested");
 		return "Hello World";
 	}
-
-
 }

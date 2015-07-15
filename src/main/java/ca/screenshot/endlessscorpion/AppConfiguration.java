@@ -1,10 +1,13 @@
 package ca.screenshot.endlessscorpion;
 
-import ca.screenshot.endlessscorpion.remote.SubscriptionService;
-import ca.screenshot.endlessscorpion.remote.appdirect.RestSubscriptionService;
+import ca.screenshot.endlessscorpion.services.DefaultEventProcessService;
+import ca.screenshot.endlessscorpion.services.EventDispatchService;
+import ca.screenshot.endlessscorpion.services.EventProcessService;
+import ca.screenshot.endlessscorpion.services.SimpleTaskExecutorEventDispatchService;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.basic.DefaultOAuthConsumer;
 import oauth.signpost.signature.QueryStringSigningStrategy;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
@@ -14,7 +17,6 @@ import org.springframework.http.converter.xml.SourceHttpMessageConverter;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.client.RestTemplate;
 
-import javax.xml.transform.Source;
 import java.util.Arrays;
 
 /**
@@ -23,17 +25,16 @@ import java.util.Arrays;
  */
 @Configuration
 public class AppConfiguration {
-	@Bean
-	public SubscriptionService appDirectSubscription() {
-		return new RestSubscriptionService();
-	}
+	@Value("#{environment.consumerKey}")
+	private String oauthConsumerKey;
+	@Value("#{environment.consumerSecret}")
+	private String oauthConsumerSecret;
 
 	@Bean
 	public RestTemplate restTemplate() {
 		final RestTemplate restTemplate = new RestTemplate();
 		restTemplate.setMessageConverters(
-				//Collections.<HttpMessageConverter<?>>singletonList(new SourceHttpMessageConverter<Source>())
-				Arrays.<HttpMessageConverter<?>>asList(new SourceHttpMessageConverter<Source>(), new Jaxb2RootElementHttpMessageConverter())
+				Arrays.<HttpMessageConverter<?>>asList(new SourceHttpMessageConverter<>(), new Jaxb2RootElementHttpMessageConverter())
 		);
 
 		return restTemplate;
@@ -50,8 +51,22 @@ public class AppConfiguration {
 	}
 
 	@Bean
+	public EventDispatchService eventDispatchService() {
+		// <Got a new event, fetch it> Object
+		return new SimpleTaskExecutorEventDispatchService();
+	}
+
+	@Bean
+	public EventProcessService eventProcessService() {
+		// <Fetched an event, process it> Object
+		return new DefaultEventProcessService();
+	}
+
+	@Bean
 	public OAuthConsumer oAuthConsumer() {
-		final OAuthConsumer consumer = new DefaultOAuthConsumer("endless-scorpion-31185", "NfYatL9YqPkxJkHo");
+		// TODO: Don't hardcode the credentials
+		// Really, don't
+		final OAuthConsumer consumer = new DefaultOAuthConsumer(this.oauthConsumerKey, this.oauthConsumerSecret);
 		consumer.setSigningStrategy(new QueryStringSigningStrategy());
 		return consumer;
 	}
