@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * Created by plaguemorin on 15/07/15.
  *
  */
-@XmlRootElement
+@XmlRootElement(name = "result")
 @XmlAccessorType(XmlAccessType.NONE)
 public class ResponseBody {
 	@XmlElement
@@ -18,11 +18,10 @@ public class ResponseBody {
 	private String message;
 	@XmlElement
 	private String accountIdentifier;
+	@XmlElement
+	private String errorCode;
 
 	public ResponseBody() {
-		this.success = false;
-		this.message = "";
-		this.accountIdentifier = "";
 	}
 
 	public boolean getSuccess() {
@@ -47,5 +46,13 @@ public class ResponseBody {
 
 	public void setAccountIdentifier(String accountIdentifier) {
 		this.accountIdentifier = accountIdentifier;
+	}
+
+	public String getErrorCode() {
+		return errorCode;
+	}
+
+	public void setErrorCode(String errorCode) {
+		this.errorCode = errorCode;
 	}
 }
