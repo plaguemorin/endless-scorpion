@@ -3,6 +3,9 @@ package ca.screenshot.endlessscorpion;
 import ca.screenshot.endlessscorpion.controllers.RestEndpoint;
 import ca.screenshot.endlessscorpion.remote.SubscriptionService;
 import ca.screenshot.endlessscorpion.remote.appdirect.RestSubscriptionService;
+import oauth.signpost.OAuthConsumer;
+import oauth.signpost.basic.DefaultOAuthConsumer;
+import oauth.signpost.signature.QueryStringSigningStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -31,6 +34,13 @@ public class AppConfiguration {
 		);
 
 		return restTemplate;
+	}
+
+	@Bean
+	public OAuthConsumer oAuthConsumer() {
+		final OAuthConsumer consumer = new DefaultOAuthConsumer("endless-scorpion-31185", "NfYatL9YqPkxJkHo");
+		consumer.setSigningStrategy(new QueryStringSigningStrategy());
+		return consumer;
 	}
 
 	@Bean
