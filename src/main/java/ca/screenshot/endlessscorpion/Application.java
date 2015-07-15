@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 /**
  * Created by plaguemorin on 12/07/15.
- * 
+ *
  */
 @SpringBootApplication
 public class Application {

@@ -1,1 +1,2 @@
-web:    SERVER_PORT=80 java -cp target/classes:target/dependency/* ca.screenshot.endlessscorpion.Application
+web:    java $JAVA_OPTS -jar target/dependency/webapp-runner.jar --port $PORT target/*.war
+
