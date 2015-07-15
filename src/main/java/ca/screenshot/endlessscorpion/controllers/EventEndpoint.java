@@ -1,5 +1,6 @@
 package ca.screenshot.endlessscorpion.controllers;
 
+import ca.screenshot.endlessscorpion.beans.ResponseBody;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,8 +25,10 @@ public class EventEndpoint {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public String eventGet(@RequestParam("url") final String url) {
+	public ResponseBody eventGet(@RequestParam("url") final String url) {
+		final ResponseBody responseBody = new ResponseBody();
+		responseBody.setSuccess(true);
 		LOG.info("URL = {}", url);
-		return "OK";
+		return responseBody;
 	}
 }
