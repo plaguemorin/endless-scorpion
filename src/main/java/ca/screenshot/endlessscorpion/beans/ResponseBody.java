@@ -19,6 +19,12 @@ public class ResponseBody {
 	@XmlElement
 	private String accountIdentifier;
 
+	private ResponseBody() {
+		this.success = false;
+		this.message = "";
+		this.accountIdentifier = "";
+	}
+
 	public boolean getSuccess() {
 		return this.success;
 	}
