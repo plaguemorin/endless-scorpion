@@ -4,12 +4,13 @@ import ca.screenshot.endlessscorpion.remote.SubscriptionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * Created by plaguemorin on 13/07/15.
- *
  */
 @RestController
 public class RestEndpoint {
@@ -24,8 +25,9 @@ public class RestEndpoint {
 		return "Hello World";
 	}
 
-	@RequestMapping("/event")
-	public String event() {
-		return "";
+	@RequestMapping(name = "/event", method = RequestMethod.POST)
+	public String event(@RequestBody final String token) {
+		LOG.info("token = {}", token);
+		return "OK";
 	}
 }
