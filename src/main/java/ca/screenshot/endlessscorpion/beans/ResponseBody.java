@@ -19,7 +19,7 @@ public class ResponseBody {
 	@XmlElement
 	private String accountIdentifier;
 
-	private ResponseBody() {
+	public ResponseBody() {
 		this.success = false;
 		this.message = "";
 		this.accountIdentifier = "";
