@@ -17,10 +17,10 @@ import java.util.Collections;
 
 /**
  * Created by plaguemorin on 11/07/15.
+ *
  */
 @Configuration
 public class AppConfiguration {
-
 	@Bean
 	public SubscriptionService appDirectSubscription() {
 		return new RestSubscriptionService();
@@ -44,7 +44,7 @@ public class AppConfiguration {
 	}
 
 	@Bean
-	public Object restEndpoint() {
+	public RestEndpoint restEndpoint() {
 		return new RestEndpoint();
 	}
 }
