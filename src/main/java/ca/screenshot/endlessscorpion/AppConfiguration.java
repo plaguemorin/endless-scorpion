@@ -7,8 +7,10 @@ import oauth.signpost.basic.DefaultOAuthConsumer;
 import oauth.signpost.signature.QueryStringSigningStrategy;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.task.TaskExecutor;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.xml.SourceHttpMessageConverter;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.client.RestTemplate;
 
 import javax.xml.transform.Source;
@@ -33,6 +35,16 @@ public class AppConfiguration {
 		);
 
 		return restTemplate;
+	}
+
+	@Bean
+	public TaskExecutor executor() {
+		final ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+		executor.setCorePoolSize(5);
+		executor.setMaxPoolSize(10);
+		executor.setQueueCapacity(25);
+
+		return executor;
 	}
 
 	@Bean
