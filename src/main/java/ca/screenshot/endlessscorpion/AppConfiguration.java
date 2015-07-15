@@ -1,6 +1,5 @@
 package ca.screenshot.endlessscorpion;
 
-import ca.screenshot.endlessscorpion.controllers.RestEndpoint;
 import ca.screenshot.endlessscorpion.remote.SubscriptionService;
 import ca.screenshot.endlessscorpion.remote.appdirect.RestSubscriptionService;
 import oauth.signpost.OAuthConsumer;
@@ -41,10 +40,5 @@ public class AppConfiguration {
 		final OAuthConsumer consumer = new DefaultOAuthConsumer("endless-scorpion-31185", "NfYatL9YqPkxJkHo");
 		consumer.setSigningStrategy(new QueryStringSigningStrategy());
 		return consumer;
-	}
-
-	@Bean
-	public RestEndpoint restEndpoint() {
-		return new RestEndpoint();
 	}
 }
