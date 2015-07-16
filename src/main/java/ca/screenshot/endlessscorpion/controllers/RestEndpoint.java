@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class RestEndpoint {
 	private static final Logger LOG = LoggerFactory.getLogger(RestEndpoint.class);
-	
+
 	@RequestMapping("/")
 	public String index() {
 		LOG.info("Index requested");

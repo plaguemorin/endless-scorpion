@@ -7,6 +7,8 @@ import ca.screenshot.endlessscorpion.services.SimpleTaskExecutorEventDispatchSer
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.basic.DefaultOAuthConsumer;
 import oauth.signpost.signature.QueryStringSigningStrategy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +27,8 @@ import java.util.Arrays;
  */
 @Configuration
 public class AppConfiguration {
+	private static final Logger LOG = LoggerFactory.getLogger(AppConfiguration.class);
+
 	@Value("#{environment.consumerKey}")
 	private String oauthConsumerKey;
 	@Value("#{environment.consumerSecret}")
@@ -64,10 +68,12 @@ public class AppConfiguration {
 
 	@Bean
 	public OAuthConsumer oAuthConsumer() {
-		// TODO: Don't hardcode the credentials
-		// Really, don't
+		// Don't hardcode the credentials. Really, don't
 		final OAuthConsumer consumer = new DefaultOAuthConsumer(this.oauthConsumerKey, this.oauthConsumerSecret);
 		consumer.setSigningStrategy(new QueryStringSigningStrategy());
+
+		LOG.info("Using consumer key = {}", this.oauthConsumerKey);
+
 		return consumer;
 	}
 }
