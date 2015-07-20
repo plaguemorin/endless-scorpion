@@ -1,6 +1,6 @@
 package ca.screenshot.endlessscorpion.services;
 
-import ca.screenshot.endlessscorpion.beans.Event;
+import ca.screenshot.endlessscorpion.beans.event.Event;
 import oauth.signpost.OAuthConsumer;
 import oauth.signpost.exception.OAuthCommunicationException;
 import oauth.signpost.exception.OAuthExpectationFailedException;

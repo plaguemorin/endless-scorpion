@@ -1,6 +1,6 @@
 package ca.screenshot.endlessscorpion.services;
 
-import ca.screenshot.endlessscorpion.beans.Event;
+import ca.screenshot.endlessscorpion.beans.event.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -26,6 +26,7 @@ import java.util.Arrays;
  * --
  */
 @Configuration
+//@EnableJpaRepositories
 public class AppConfiguration {
 	private static final Logger LOG = LoggerFactory.getLogger(AppConfiguration.class);
 
@@ -33,6 +34,8 @@ public class AppConfiguration {
 	private String oauthConsumerKey;
 	@Value("#{environment.consumerSecret}")
 	private String oauthConsumerSecret;
+	@Value("#{environment.DATABASE_URL}")
+	private String databaseUrl;
 
 	@Bean
 	public RestTemplate restTemplate() {
@@ -47,6 +50,8 @@ public class AppConfiguration {
 	@Bean
 	public TaskExecutor executor() {
 		final ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+
+		/* Magic numbers ahead! */
 		executor.setCorePoolSize(5);
 		executor.setMaxPoolSize(10);
 		executor.setQueueCapacity(25);
@@ -76,4 +81,22 @@ public class AppConfiguration {
 
 		return consumer;
 	}
+/*
+	@Bean
+	public DataSource dataSource() throws URISyntaxException {
+		final URI dbUri = new URI(this.databaseUrl);
+
+		final String[] split = dbUri.getUserInfo().split(":");
+		final String username = split[0];
+		final String password = split[1];
+
+		final String dbUrl = String.format("jdbc:postgresql://%s:%d%s", dbUri.getHost(), dbUri.getPort(), dbUri.getPath());
+		LOG.info("Using database {} with user {}", dbUrl, username);
+
+		final BasicDataSource basicDataSource = new BasicDataSource();
+		basicDataSource.setUrl(dbUrl);
+		basicDataSource.setUsername(username);
+		basicDataSource.setPassword(password);
+		return basicDataSource;
+	}*/
 }

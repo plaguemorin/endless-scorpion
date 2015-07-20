@@ -1,4 +1,4 @@
-package ca.screenshot.endlessscorpion.beans;
+package ca.screenshot.endlessscorpion.beans.event;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -28,9 +28,23 @@ public class Event {
 	@XmlElement
 	private EventFlag flag;
 
+	@XmlElement
+	private Marketplace marketplace;
+
+	@XmlElement
+	private Creator creator;
+
+	@XmlElement
+	private Payload payload;
+
+	@XmlElement
+	private String returnUrl;
+
 	public EventType getType() {
 		return this.type;
 	}
+
+
 
 
 }
