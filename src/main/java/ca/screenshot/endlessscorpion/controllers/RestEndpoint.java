@@ -5,6 +5,7 @@ import ca.screenshot.endlessscorpion.services.CompanyDataStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -35,6 +36,19 @@ public class RestEndpoint {
 			stringBuffer.append("</a></li>\n");
 		}
 		stringBuffer.append("</ol>");
+
+		return stringBuffer.toString();
+	}
+
+	@RequestMapping("/company/{companyUuid}/")
+	public String companyInfo(@PathVariable("companyUuid") final String companyUuid) {
+		final StringBuilder stringBuffer = new StringBuilder();
+		LOG.info("Info on company {}", companyUuid);
+		final Company comp = companyDataStorage.findByUuid(companyUuid);
+
+		stringBuffer.append("<h1>");
+		stringBuffer.append(comp.getName());
+		stringBuffer.append("</h1>");
 
 		return stringBuffer.toString();
 	}
