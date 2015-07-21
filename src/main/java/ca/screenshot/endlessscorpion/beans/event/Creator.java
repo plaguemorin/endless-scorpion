@@ -28,4 +28,52 @@ public class Creator {
 
 	@XmlElement
 	private String openId;
+
+	public String getUuid() {
+		return this.uuid;
+	}
+
+	public void setUuid(final String uuid) {
+		this.uuid = uuid;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(final String email) {
+		this.email = email;
+	}
+
+	public String getFirstName() {
+		return this.firstName;
+	}
+
+	public void setFirstName(final String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return this.lastName;
+	}
+
+	public void setLastName(final String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getLanguage() {
+		return this.language;
+	}
+
+	public void setLanguage(final String language) {
+		this.language = language;
+	}
+
+	public String getOpenId() {
+		return this.openId;
+	}
+
+	public void setOpenId(final String openId) {
+		this.openId = openId;
+	}
 }

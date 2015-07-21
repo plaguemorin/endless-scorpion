@@ -6,20 +6,14 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
- * Created by plaguemorin on 15/07/15.
+ * Created by plaguemorin on 20/07/15.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class Payload {
+public class OrderItem {
+	@XmlElement
+	private Long quantity;
 
 	@XmlElement
-	private Account account;
-
-	@XmlElement
-	private Company company;
-
-
-	public Company getCompany() {
-		return this.company;
-	}
+	private String unit;
 }

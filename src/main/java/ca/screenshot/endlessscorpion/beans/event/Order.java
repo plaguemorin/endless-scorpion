@@ -4,22 +4,20 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 /**
  * Created by plaguemorin on 15/07/15.
  */
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.NONE)
-public class Payload {
+public class Order {
+	@XmlElement
+	private String editionCode;
 
 	@XmlElement
-	private Account account;
+	private String pricingDuration;
 
 	@XmlElement
-	private Company company;
-
-
-	public Company getCompany() {
-		return this.company;
-	}
+	private List<OrderItem> item;
 }
