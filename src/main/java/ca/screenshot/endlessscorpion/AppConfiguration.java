@@ -18,6 +18,10 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
 import org.springframework.http.converter.xml.SourceHttpMessageConverter;
+import org.springframework.orm.jpa.JpaVendorAdapter;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.Database;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.web.client.RestTemplate;
 
@@ -85,6 +89,24 @@ public class AppConfiguration {
 		LOG.info("Using consumer key = {}", this.oauthConsumerKey);
 
 		return consumer;
+	}
+
+	@Bean
+	public LocalContainerEntityManagerFactoryBean entityManagerFactory(final DataSource dataSource, final JpaVendorAdapter jpaVendorAdapter) {
+		final LocalContainerEntityManagerFactoryBean lef = new LocalContainerEntityManagerFactoryBean();
+		lef.setDataSource(dataSource);
+		lef.setJpaVendorAdapter(jpaVendorAdapter);
+		lef.setPackagesToScan("ca.screenshot");
+		return lef;
+	}
+
+	@Bean
+	public JpaVendorAdapter jpaVendorAdapter() {
+		final HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
+		jpaVendorAdapter.setShowSql(true);
+		jpaVendorAdapter.setGenerateDdl(true); //Auto creating scheme when true
+		jpaVendorAdapter.setDatabase(Database.POSTGRESQL);//Database type
+		return jpaVendorAdapter;
 	}
 
 	@Bean
