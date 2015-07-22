@@ -5,6 +5,7 @@ import ca.screenshot.endlessscorpion.services.CompanyDataStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.openid.OpenIDAuthenticationStatus;
 import org.springframework.security.openid.OpenIDAuthenticationToken;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,15 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by plaguemorin on 13/07/15.
  */
 @RestController
-public class RestEndpoint {
-	private static final Logger LOG = LoggerFactory.getLogger(RestEndpoint.class);
+public class HomeController {
+	private static final Logger LOG = LoggerFactory.getLogger(HomeController.class);
 
 	@Autowired
 	private CompanyDataStorage companyDataStorage;
 
-	@RequestMapping("/login")
-	public String index() {
-		return "login";
+	@RequestMapping("/")
+	public String index(final Model model, final OpenIDAuthenticationToken authentication) {
+		model.addAttribute("authenticated", authentication != null ? OpenIDAuthenticationStatus.SUCCESS.equals(authentication.getStatus()) : Boolean.FALSE);
+
+		return "index";
 	}
 
 	@RequestMapping("/show/")
