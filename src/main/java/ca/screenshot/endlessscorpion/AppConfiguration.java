@@ -11,7 +11,9 @@ import org.apache.commons.dbcp.BasicDataSource;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -23,6 +25,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
 import org.springframework.security.openid.OpenIDAuthenticationToken;
 import org.springframework.web.client.RestTemplate;
@@ -38,6 +41,8 @@ import java.util.Arrays;
  */
 @Configuration
 @EnableJpaRepositories
+@ComponentScan
+@EnableAutoConfiguration
 public class AppConfiguration {
 	private static final Logger LOG = LoggerFactory.getLogger(AppConfiguration.class);
 
@@ -99,7 +104,7 @@ public class AppConfiguration {
 	}
 
 	@Bean
-	public SecurityConfig securityConfig() {
+	public WebSecurityConfigurerAdapter securityConfig() {
 		return new SecurityConfig();
 	}
 
