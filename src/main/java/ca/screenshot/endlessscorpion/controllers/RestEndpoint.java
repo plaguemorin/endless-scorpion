@@ -21,7 +21,7 @@ public class RestEndpoint {
 	@Autowired
 	private CompanyDataStorage companyDataStorage;
 
-	@RequestMapping("/")
+	@RequestMapping("/login")
 	public String index() {
 		return "login";
 	}
