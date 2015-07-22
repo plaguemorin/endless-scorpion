@@ -5,6 +5,8 @@ import ca.screenshot.endlessscorpion.services.CompanyDataStorage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.openid.OpenIDAuthenticationToken;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,23 +23,13 @@ public class RestEndpoint {
 
 	@RequestMapping("/")
 	public String index() {
-		final StringBuilder stringBuffer = new StringBuilder();
-		LOG.info("Index requested");
+		return "login";
+	}
 
-		// Truth be told, this is very ugly
-		// Don't do this at home kids
-		stringBuffer.append("<ol>");
-		final Iterable<Company> comps = this.companyDataStorage.findAll();
-		for (final Company company : comps) {
-			stringBuffer.append("<li><a href=\"company/");
-			stringBuffer.append(company.getUuid());
-			stringBuffer.append("\">");
-			stringBuffer.append(company.getName());
-			stringBuffer.append("</a></li>\n");
-		}
-		stringBuffer.append("</ol>");
-
-		return stringBuffer.toString();
+	@RequestMapping("/")
+	public String show(final Model model, final OpenIDAuthenticationToken authentication) {
+		model.addAttribute("authentication", authentication);
+		return "show";
 	}
 
 	@RequestMapping("/company/{companyUuid}/")
@@ -49,6 +41,9 @@ public class RestEndpoint {
 		stringBuffer.append("<h1>");
 		stringBuffer.append(comp.getName());
 		stringBuffer.append("</h1>");
+
+		// List all subscription for that company
+
 
 		return stringBuffer.toString();
 	}

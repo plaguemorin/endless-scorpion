@@ -23,6 +23,8 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
+import org.springframework.security.core.userdetails.AuthenticationUserDetailsService;
+import org.springframework.security.openid.OpenIDAuthenticationToken;
 import org.springframework.web.client.RestTemplate;
 
 import javax.sql.DataSource;
@@ -89,6 +91,16 @@ public class AppConfiguration {
 		LOG.info("Using consumer key = {}", this.oauthConsumerKey);
 
 		return consumer;
+	}
+
+	@Bean
+	public AuthenticationUserDetailsService<OpenIDAuthenticationToken> userDetailsService() {
+		return new CustomUserDetailsService();
+	}
+
+	@Bean
+	public SecurityConfig securityConfig() {
+		return new SecurityConfig();
 	}
 
 	@Bean
