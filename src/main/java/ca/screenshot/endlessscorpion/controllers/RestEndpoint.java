@@ -26,7 +26,7 @@ public class RestEndpoint {
 		return "login";
 	}
 
-	@RequestMapping("/")
+	@RequestMapping("/show/")
 	public String show(final Model model, final OpenIDAuthenticationToken authentication) {
 		model.addAttribute("authentication", authentication);
 		return "show";
