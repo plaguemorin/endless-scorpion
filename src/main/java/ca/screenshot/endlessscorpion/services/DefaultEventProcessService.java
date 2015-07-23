@@ -1,7 +1,9 @@
 package ca.screenshot.endlessscorpion.services;
 
+import ca.screenshot.endlessscorpion.beans.event.Creator;
 import ca.screenshot.endlessscorpion.beans.event.Event;
 import ca.screenshot.endlessscorpion.model.Company;
+import ca.screenshot.endlessscorpion.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +24,8 @@ public class DefaultEventProcessService implements EventProcessService {
 
 	@Autowired
 	private CompanyDataStorage companyDataStorage;
+	@Autowired
+	private UserDataStorage userDataStorage;
 
 	@Override
 	public void processEvent(final Event event) {
@@ -88,6 +92,16 @@ public class DefaultEventProcessService implements EventProcessService {
 			comp.setUuid(uuid);
 
 			this.companyDataStorage.save(comp);
+
+			final Creator creator = event.getCreator();
+			final User myUser = new User();
+
+			myUser.setEmail(creator.getEmail());
+			myUser.setFirstName(creator.getFirstName());
+			myUser.setLastName(creator.getLastName());
+			myUser.setOpenId(creator.getOpenId());
+
+			this.userDataStorage.save(myUser);
 		}
 
 		// TODO: Do something with the company
