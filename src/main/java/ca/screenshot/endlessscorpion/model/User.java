@@ -1,14 +1,12 @@
 package ca.screenshot.endlessscorpion.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * Created by plaguemorin on 22/07/15.
  */
 @Entity
+@Table(name = "profile")
 public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
