@@ -55,29 +55,9 @@ public class DefaultEventProcessService implements EventProcessService {
 				this.handleUserUnassignment(event);
 				break;
 			default:
+				// This should never happen
 				LOG.error("Unknown even type = {}", event.getType());
 		}
-	}
-
-
-	private void handleUserUnassignment(final Event event) {
-
-	}
-
-	private void handleUserAssignment(final Event event) {
-
-	}
-
-	private void handleSubscriptionNotice(final Event event) {
-
-	}
-
-	private void handleSubscriptionCancel(final Event event) {
-
-	}
-
-	private void handleChange(final Event event) {
-
 	}
 
 	private void handleOrder(final Event event) {
@@ -105,5 +85,25 @@ public class DefaultEventProcessService implements EventProcessService {
 		}
 
 		// TODO: Do something with the company
+	}
+
+	private void handleUserUnassignment(final Event event) {
+
+	}
+
+	private void handleUserAssignment(final Event event) {
+
+	}
+
+	private void handleSubscriptionNotice(final Event event) {
+
+	}
+
+	private void handleSubscriptionCancel(final Event event) {
+
+	}
+
+	private void handleChange(final Event event) {
+
 	}
 }
